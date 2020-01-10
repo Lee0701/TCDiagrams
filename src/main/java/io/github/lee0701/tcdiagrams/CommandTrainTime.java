@@ -78,6 +78,7 @@ public class CommandTrainTime implements CommandExecutor {
                             if(sender instanceof Player) {
                                 TrainProperties train = CartProperties.getEditing((Player) sender).getTrainProperties();
                                 Train.of(train.getTrainName()).startTimeTable(timeTable);
+                                sender.sendMessage(ChatColor.YELLOW + "Time table started on train " + train.getTrainName());
                             }
                         }
                     }

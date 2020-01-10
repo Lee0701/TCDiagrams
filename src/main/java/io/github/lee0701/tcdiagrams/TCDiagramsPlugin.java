@@ -2,10 +2,12 @@ package io.github.lee0701.tcdiagrams;
 
 import com.bergerkiller.bukkit.tc.signactions.SignAction;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public final class TCDiagramsPlugin extends JavaPlugin {
 
@@ -18,9 +20,13 @@ public final class TCDiagramsPlugin extends JavaPlugin {
 
     public void reload() {
         dataConfiguration = YamlConfiguration.loadConfiguration(dataFile);
+        if(dataConfiguration.isList("timeTables")) {
+            dataConfiguration.getList("timeTables");
+        }
     }
 
     private void save() {
+        dataConfiguration.set("timeTables", new ArrayList<>(TimeTable.TIME_TABLES.values()));
         try {
             dataConfiguration.save(dataFile);
         } catch(IOException ex) {
@@ -31,6 +37,9 @@ public final class TCDiagramsPlugin extends JavaPlugin {
     @Override
     public void onEnable() {
         getDataFolder().mkdirs();
+
+        ConfigurationSerialization.registerClass(TimeTable.class);
+        ConfigurationSerialization.registerClass(Stop.class);
 
         reload();
 
