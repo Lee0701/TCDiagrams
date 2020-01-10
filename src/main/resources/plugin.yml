@@ -1,0 +1,10 @@
+name: TCDiagrams
+version: @version@
+main: io.github.lee0701.tcdiagrams.TCDiagramsPlugin
+author: Lee0701
+description: Train diagrams addon for TrainCarts.
+depend: [Train_Carts]
+commands:
+  traintime:
+    aliases: [tt]
+    description: "Train time command."
