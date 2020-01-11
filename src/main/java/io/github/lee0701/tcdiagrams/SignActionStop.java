@@ -42,7 +42,7 @@ public class SignActionStop extends SignActionStation {
                 info.setLine(2, currentStop.getDestination());
                 info.setLine(3, "");
 
-                 if(info.isAction(SignActionType.GROUP_LEAVE)) {
+                if(info.isAction(SignActionType.GROUP_LEAVE)) {
                     train.nextStop();
                 }
             }

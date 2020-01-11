@@ -46,6 +46,7 @@ public final class TCDiagramsPlugin extends JavaPlugin {
         getCommand("traintime").setExecutor(new CommandTrainTime());
 
         SignAction.register(new SignActionStop());
+        SignAction.register(new SignActionDepot());
 
     }
 

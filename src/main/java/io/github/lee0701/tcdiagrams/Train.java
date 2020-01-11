@@ -15,6 +15,8 @@ public class Train {
     }
 
     private final String trainName;
+
+    private String systemName;
     private String timeTableName;
     private long timeTableStart;
     private int stopIndex;
@@ -42,6 +44,14 @@ public class Train {
 
     public String getTrainName() {
         return trainName;
+    }
+
+    public String getSystemName() {
+        return systemName;
+    }
+
+    public void setSystemName(String systemName) {
+        this.systemName = systemName;
     }
 
     public String getTimeTableName() {

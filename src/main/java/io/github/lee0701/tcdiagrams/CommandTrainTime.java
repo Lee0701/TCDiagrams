@@ -120,6 +120,57 @@ public class CommandTrainTime implements CommandExecutor {
                     message.append(timeTable.getName());
                 }
                 sender.sendMessage(message.toString());
+                return true;
+
+            } else if(args[0].equals("trainsystem") || args[0].equals("ts")) {
+                if(args.length >= 2) {
+                    TrainSystem trainSystem = TrainSystem.TRAIN_SYSTEMS.get(args[1]);
+
+                    if(args.length < 3 || args[2].equals("info")) {
+
+                    } else if(args[2].equals("start")) {
+                        trainSystem.start();
+                        sender.sendMessage(ChatColor.YELLOW + "Started train system.");
+                    } else if(args[2].equals("stop")) {
+                        trainSystem.stop();
+                        sender.sendMessage(ChatColor.YELLOW + "Stopped train system.");
+                    } else if(args[2].equals("addrun") || args[2].equals("addr") || args[2].equals("ar")) {
+                        if(args.length >= 5) {
+                            int index = parseStopIndex(args[3]);
+                            String name = args[4];
+                            if(index == Integer.MAX_VALUE) index = trainSystem.getTrainRuns().size();
+                            if(index > -1 && index <= trainSystem.getTrainRuns().size()) {
+                                TrainRun trainRun = new TrainRun(name);
+                                trainSystem.getTrainRuns().add(index, trainRun);
+                                sender.sendMessage(ChatColor.YELLOW + "New run added!");
+                            } else {
+                                sender.sendMessage(ChatColor.YELLOW + "Position must be number in the list or first/last!");
+                            }
+                        }
+                        return true;
+                    }
+                }
+                return true;
+
+            } else if(args[0].equals("addtrainsystem") || args[0].equals("addts") || args[0].equals("ats")) {
+                if(args.length >= 2) {
+                    String name = args[1];
+                    TrainSystem trainSystem = new TrainSystem(name);
+                    TrainSystem.TRAIN_SYSTEMS.put(name, trainSystem);
+
+                    sender.sendMessage(ChatColor.YELLOW + "Created a new train system.");
+                } else {
+                    sender.sendMessage(ChatColor.YELLOW + "Please enter a name for the train system!");
+                }
+                return true;
+
+            } else if(args[0].equals("listtrainsystem") || args[0].equals("listts") || args[0].equals("lts")) {
+                StringBuilder message = new StringBuilder(ChatColor.YELLOW + "List of train systems:" + ChatColor.WHITE);
+                for(TrainSystem trainSystem : TrainSystem.TRAIN_SYSTEMS.values()) {
+                    message.append("\n - ");
+                    message.append(trainSystem.getName());
+                }
+                sender.sendMessage(message.toString());
             }
         }
         return false;
